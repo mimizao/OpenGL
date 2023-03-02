@@ -1,0 +1,8 @@
+﻿  1>Building Custom Rule D:/OpenGL/glfw-3.3.8/examples/CMakeLists.txt
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(230,5): warning MSB8065: 项“D:\OpenGL\glfw-3.3.8\examples\CMakeLists.txt”的自定义生成成功，但尚未创建指定的输出“d:\opengl\glfw-3.3.8\build\examples\cmakefiles\generate.stamp”。这可能会导致增量生成无法正常工作。
+  particles.c
+  tinycthread.c
+  getopt.c
+  glad_gl.c
+  正在生成代码...
+  particles.vcxproj -> D:\OpenGL\glfw-3.3.8\build\examples\Debug\particles.exe

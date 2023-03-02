@@ -1,0 +1,4 @@
+# ninja log v5
+1	858	6993448804456953	CMakeFiles/02_hello_triangle.dir/glad.c.obj	53d565f2e9656b99
+829	1279	6993659363642343	02_hello_triangle.exe	233690199641a9c1
+1	828	6993659359838463	CMakeFiles/02_hello_triangle.dir/main.cpp.obj	f1ded461e7533eba
