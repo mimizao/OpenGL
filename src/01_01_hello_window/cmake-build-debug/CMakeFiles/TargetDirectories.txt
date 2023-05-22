@@ -1,0 +1,3 @@
+C:/Users/Sven/OneDrive/Study/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/01_hello_window.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/rebuild_cache.dir

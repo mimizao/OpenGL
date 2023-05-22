@@ -1,3 +1,0 @@
-D:/OneDrive/学习/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/01_hello_window.dir
-D:/OneDrive/学习/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/学习/OpenGL/src/01_hello_window/cmake-build-debug/CMakeFiles/rebuild_cache.dir
