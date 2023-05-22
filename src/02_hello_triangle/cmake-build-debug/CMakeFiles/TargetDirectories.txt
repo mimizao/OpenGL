@@ -1,3 +1,0 @@
-D:/OneDrive/学习/OpenGL/src/02_hello_triangle/cmake-build-debug/CMakeFiles/02_hello_triangle.dir
-D:/OneDrive/学习/OpenGL/src/02_hello_triangle/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/OneDrive/学习/OpenGL/src/02_hello_triangle/cmake-build-debug/CMakeFiles/rebuild_cache.dir
