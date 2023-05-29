@@ -1,0 +1,6 @@
+# ninja log v5
+863	1590	7011019120123349	02_hello_triangle.exe	eb94eebeca41b02f
+569	1032	7052414840431067	02_02_homework_01.exe	8489782d0fd554eb
+67	823	7052433105599834	CMakeFiles/02_05_study_with_vao_count.dir/main.cpp.obj	bb1d4e705c7ff1f5
+1	891	7052433106279835	CMakeFiles/02_05_study_with_vao_count.dir/glad.c.obj	89809a4019febb63
+892	2458	7052433121504826	02_05_study_with_vao_count.exe	64032c274b7dc380
