@@ -1,0 +1,5 @@
+# ninja log v5
+863	1590	7011019120123349	02_hello_triangle.exe	eb94eebeca41b02f
+33	597	7052351363509252	CMakeFiles/02_01_hello_triangle.dir/glad.c.obj	92b01867c88445bc
+1	602	7052351363554248	CMakeFiles/02_01_hello_triangle.dir/main.cpp.obj	beaba887ce88fe91
+602	1678	7052351373871747	02_01_hello_triangle.exe	cf7567bde8f4286d
