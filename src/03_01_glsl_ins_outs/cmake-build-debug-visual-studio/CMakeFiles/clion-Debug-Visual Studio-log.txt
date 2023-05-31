@@ -1,0 +1,4 @@
+C:\Users\Administrator\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8770.66\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8770.66/bin/ninja/win/x64/ninja.exe -G Ninja -S D:\OneDrive\Study\OpenGL\src\03_01_glsl_ins_outs -B D:\OneDrive\Study\OpenGL\src\03_01_glsl_ins_outs\cmake-build-debug-visual-studio
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/OneDrive/Study/OpenGL/src/03_01_glsl_ins_outs/cmake-build-debug-visual-studio

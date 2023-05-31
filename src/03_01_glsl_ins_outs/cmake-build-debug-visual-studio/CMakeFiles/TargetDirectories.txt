@@ -1,0 +1,3 @@
+D:/OneDrive/Study/OpenGL/src/03_01_glsl_ins_outs/cmake-build-debug-visual-studio/CMakeFiles/03_01_glsl_ins_outs.dir
+D:/OneDrive/Study/OpenGL/src/03_01_glsl_ins_outs/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/03_01_glsl_ins_outs/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
