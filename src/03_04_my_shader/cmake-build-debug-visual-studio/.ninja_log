@@ -1,0 +1,7 @@
+# ninja log v5
+28	809	7053936555359113	CMakeFiles/03_04_my_shader.dir/glad.c.obj	602b10139c9d9da4
+1	811	7053936555433608	CMakeFiles/03_04_my_shader.dir/main.cpp.obj	62bbbcd1b2a50846
+84	826	7053936555592544	CMakeFiles/03_04_my_shader.dir/Shader.cpp.obj	6b0f5f26135f03bd
+826	1806	7053936565138493	D:/OneDrive/Study/OpenGL/src/03_04_my_shader/build/03_04_my_shader.exe	7fa2a74e89cb4d0e
+2	968	7053989981144870	CMakeFiles/03_04_my_shader.dir/main.cpp.obj	62bbbcd1b2a50846
+969	2065	7053989990869688	D:/OneDrive/Study/OpenGL/src/03_04_my_shader/build/03_04_my_shader.exe	7fa2a74e89cb4d0e
