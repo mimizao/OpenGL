@@ -1,0 +1,5 @@
+# ninja log v5
+5	295	7069540401234817	CMakeFiles/04_01_textures.dir/glad.c.obj	bf17c7dfad854566
+7	305	7069540401332204	CMakeFiles/04_01_textures.dir/Shader.cpp.obj	84b46bc2f9718aa4
+2	343	7069540401711087	CMakeFiles/04_01_textures.dir/main.cpp.obj	8a818f583762ab31
+343	559	7069540403765152	C:/Users/Sven/OneDrive/Study/OpenGL/src/04_01_textures/build/04_01_textures.exe	87ba7bb5fcd2c6a8

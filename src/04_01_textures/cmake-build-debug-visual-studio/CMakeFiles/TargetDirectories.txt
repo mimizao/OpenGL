@@ -1,0 +1,3 @@
+D:/OneDrive/Study/OpenGL/src/04_01_textures/cmake-build-debug-visual-studio/CMakeFiles/04_01_textures.dir
+D:/OneDrive/Study/OpenGL/src/04_01_textures/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/04_01_textures/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
