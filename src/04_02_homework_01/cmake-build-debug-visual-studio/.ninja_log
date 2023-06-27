@@ -1,0 +1,9 @@
+# ninja log v5
+1	751	7055006438894448	CMakeFiles/04_02_homework_01.dir/glad.c.obj	85a478127b57e82d
+48	778	7055006439266962	CMakeFiles/04_02_homework_01.dir/main.cpp.obj	517e834517733b9
+74	767	7055006439147750	CMakeFiles/04_02_homework_01.dir/Shader.cpp.obj	6c55be4ae054b22
+779	2132	7055006452384992	D:/OneDrive/Study/OpenGL/src/04_02_homework_01/build/04_02_homework_01.exe	a63cf44b8145b637
+4	1124	7065377394878062	CMakeFiles/04_02_homework_01.dir/glad.c.obj	85a478127b57e82d
+104	1138	7065377395344926	CMakeFiles/04_02_homework_01.dir/Shader.cpp.obj	6c55be4ae054b22
+52	1143	7065377395394615	CMakeFiles/04_02_homework_01.dir/main.cpp.obj	517e834517733b9
+1144	2537	7065377408879088	D:/OneDrive/Study/OpenGL/src/04_02_homework_01/build/04_02_homework_01.exe	d4305bb40d4b8d71
