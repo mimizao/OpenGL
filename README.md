@@ -3435,3 +3435,72 @@ for(unsigned int i = 0; i < 10; i++)
 最终效果如下：
 
 ![image-20230628001756050](imgs/image-20230628001756050.png)
+
+### 练习
+
+#### 练习1
+
+>对GLM的`projection`函数中的`FoV`和`aspect-ratio`参数进行实验。看能否搞懂它们是如何影响透视平截头体的。
+
+```c++
+auto projection = glm::mat4(1.0f);
+//! fov越小，看到的就越近也就越大，aspect-ratio越大，就越窄
+projection = glm::perspective(glm::radians(30.0f),
+                              (float) SCR_WIDTH / (float) SCR_HEIGHT * 2,
+                              0.1f,
+                              100.0f);
+```
+
+<video src="videos/06_02_homework_01.mkv"></video>
+
+#### 练习2
+
+> 将观察矩阵在各个方向上进行位移，来看看场景是如何改变的。注意把观察矩阵当成摄像机对象。
+
+```c++
+	unsigned int i = 0;
+	while (!glfwWindowShouldClose(window))
+	{
+		...
+
+		auto view = glm::mat4(1.0f);
+        //! x变小就往左，y变小就往下
+		glm::mat4 views[] = {glm::translate(view, glm::vec3(-1.0f, -1.0f, -5.0f)),
+		                     glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f)),
+		                     glm::translate(view, glm::vec3(1.0f, 1.0f, -5.0f))};
+
+		...
+            
+		ourShader.setMat4("view", views[(++i) % (sizeof(views) / sizeof(views[0]))]);
+		
+        ...
+	}
+```
+
+<video src="videos/06_03_homework_02.mkv"></video>
+
+#### 练习3
+
+> 使用模型矩阵只让是3倍数的箱子旋转（以及第1个箱子），而让剩下的箱子保持静止
+
+```c++
+		glBindVertexArray(VAO);
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			auto model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[i]);
+			auto angle = static_cast<float>(glfwGetTime()) * 25.0f;
+			if (i % 3 == 0)
+			{
+				model = glm::rotate(model,
+				                    glm::radians(angle),
+				                    glm::vec3(1.0f, 0.3f, 0.5f));
+			}
+			ourShader.setMat4("model", model);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+```
+
+<video src="videos/06_04_homework_03.mkv"></video>
+
+这题没有什么好说的，还行还行。
