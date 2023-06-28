@@ -1,0 +1,14 @@
+# ninja log v5
+41	1010	7059201016083556	CMakeFiles/05_01_transformations.dir/glad.c.obj	1bc26d17790d8ecd
+100	1166	7059201017638121	CMakeFiles/05_01_transformations.dir/Shader.cpp.obj	e61677259562c5bd
+5	1297	7059201018969191	CMakeFiles/05_01_transformations.dir/main.cpp.obj	ca7697c4616258d9
+6	334	7094095718204323	CMakeFiles/05_01_transformations.dir/glad.c.obj	b7765f7a6ba73472
+9	463	7094095719500137	CMakeFiles/05_01_transformations.dir/Shader.cpp.obj	fbeafe1952071485
+1	516	7094095720020137	CMakeFiles/05_01_transformations.dir/main.cpp.obj	e80024cf1c276e6d
+516	811	7094095722853055	C:/Users/Sven/OneDrive/Study/OpenGL/src/05_01_transformations/build/05_01_transformations.exe	89494406e3c40dbe
+2	823	7094107336754913	CMakeFiles/05_01_transformations.dir/main.cpp.obj	e80024cf1c276e6d
+824	926	7094107337604913	C:/Users/Sven/OneDrive/Study/OpenGL/src/05_01_transformations/build/05_01_transformations.exe	89494406e3c40dbe
+2	477	7094107438066350	CMakeFiles/05_01_transformations.dir/main.cpp.obj	e80024cf1c276e6d
+478	663	7094107439706349	C:/Users/Sven/OneDrive/Study/OpenGL/src/05_01_transformations/build/05_01_transformations.exe	89494406e3c40dbe
+3	483	7094107578914575	CMakeFiles/05_01_transformations.dir/main.cpp.obj	e80024cf1c276e6d
+483	592	7094107579824578	C:/Users/Sven/OneDrive/Study/OpenGL/src/05_01_transformations/build/05_01_transformations.exe	89494406e3c40dbe
