@@ -1,0 +1,18 @@
+# ninja log v5
+1	336	7094036455163375	CMakeFiles/06_01_coordinate_systems.dir/glad.c.obj	76d24aa25bf90302
+4	473	7094036456547521	CMakeFiles/06_01_coordinate_systems.dir/Shader.cpp.obj	ec981140a265274f
+2	812	7094066392747329	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+5	243	7094988289285895	CMakeFiles/06_01_coordinate_systems.dir/glad.c.obj	76d24aa25bf90302
+7	473	7094988291569030	CMakeFiles/06_01_coordinate_systems.dir/Shader.cpp.obj	ec981140a265274f
+3	504	7094988291892480	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+505	850	7094988295231946	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
+3	905	7095833881379166	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+906	1195	7095833883266156	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
+1	803	7095842525605306	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+803	1017	7095842527476243	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
+2	549	7095843174534357	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+549	656	7095843175433447	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
+3	842	7095851774516789	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+843	1048	7095851776339301	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
+2	555	7095857759805205	CMakeFiles/06_01_coordinate_systems.dir/main.cpp.obj	9afb241f84ab8542
+556	681	7095857760835205	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_01_coordinate_systems/build/06_01_coordinate_systems.exe	72a7a07dc7f452e
