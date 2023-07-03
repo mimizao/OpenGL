@@ -1,0 +1,16 @@
+# ninja log v5
+41	1118	7060263688655215	CMakeFiles/06_04_homework_03.dir/glad.c.obj	c7ce94d9e9745e8b
+105	1157	7060263689065568	CMakeFiles/06_04_homework_03.dir/Shader.cpp.obj	45ac2e4c2a517de1
+4	1123	7060264547896717	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	1cc002bc75cacd6d
+7	331	7096741106942641	CMakeFiles/06_04_homework_03.dir/glad.c.obj	931f28b12686f3c1
+4	459	7096741108212001	CMakeFiles/06_04_homework_03.dir/Shader.cpp.obj	6c30a370a790e129
+1	499	7096741108604958	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	c15f829bba53bb91
+499	803	7096741111538488	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_04_homework_03/build/06_04_homework_03.exe	1bc4ca60cde65181
+2	550	7096743772271070	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	c15f829bba53bb91
+550	666	7096743773254312	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_04_homework_03/build/06_04_homework_03.exe	1bc4ca60cde65181
+2	565	7096744330958030	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	c15f829bba53bb91
+565	773	7096744332799611	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_04_homework_03/build/06_04_homework_03.exe	1bc4ca60cde65181
+2	551	7096744953818911	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	c15f829bba53bb91
+552	668	7096744954765601	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_04_homework_03/build/06_04_homework_03.exe	1bc4ca60cde65181
+2	561	7096749978781026	CMakeFiles/06_04_homework_03.dir/main.cpp.obj	c15f829bba53bb91
+562	779	7096749980727035	C:/Users/Sven/OneDrive/Study/OpenGL/src/06_04_homework_03/build/06_04_homework_03.exe	1bc4ca60cde65181
