@@ -3244,6 +3244,10 @@ glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
 
 ![perspective](imgs/perspective.png)
 
+
+$$
+out = \begin{pmatrix} x/w\\y/w\\z/w\end{pmatrix}
+$$
 正如你看到的那样，由于透视，这两条线在很远的地方看起来会相交。这正是透视投影想要模仿的效果，它是使用透视投影矩阵来完成的。这个投影矩阵将给定的平截头体范围映射到裁剪空间，除此之外还修改了每个顶点坐标的`w`值，从而使得离观察者越远的顶点坐标`w`分量越大。被变换到裁剪空间的坐标都会在`-w`到`w`的范围之间（任何大于这个范围的坐标都会被裁剪掉）。OpenGL要求所有可见的坐标都落在`-1.0`到`1.0`范围内，作为顶点着色器最后的输出，因此，一旦坐标在裁剪空间内之后，透视除法就会被应用到裁剪空间坐标上。
 
 使用GLM的内置函数`glm::ortho`创建透视投影矩阵：
@@ -3538,11 +3542,17 @@ glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
 ```
 
-**注意：这里是指向摄像机的`z`轴正方向，在最上面就写了“创建了一个三个単位轴相互垂直的，已摄像头位置为原点的坐标系”，在这个例子里面其实和原本的世界坐标系的`z`同一个方向。**
+**注意：这里是指向摄像机的`z`轴正方向，在最上面就写了“创建了一个三个単位轴相互垂直的，以摄像头位置为原点的坐标系”，在这个例子里面其实和原本的世界坐标系的`z`同一个方向。**
+
+其实这里有个疑问，就是为什么指向的是摄像机的`z`轴负方向，到这一步不是还没有把坐标轴确定出来吗，又怎么确定摄像机指向的是正还是负？另外如果说已经指定正负了，后面又为什么还要再去确定`x`和`y`轴呢？这里仔细想了下，其实没有什么意义，算了吧，想复杂了反而不好。
+
+补充下，是自己傻逼了，这个`z`轴没有问题，下面确定右轴时的上轴也没有问题，那个上轴其实就是世界坐标里面的`y`轴，我当时想的以为这个是摄像机坐标的`y`轴了，这两个并不是总是等同，只是在这个例子是一样的，因为这里摄像机位置相对于世界坐标原点只更改了`z`坐标。
 
 #### 右轴
 
-我们需要的另一个向量是一个**右向量**(Right Vector)，它代表摄像机空间的x轴的正方向。为获取右向量我们需要先使用一个小技巧：先定义一个**上向量**(Up Vector)。接下来把上向量和第二步得到的方向向量进行叉乘。两个向量叉乘的结果会同时垂直于两向量，因此我们会得到指向x轴正方向的那个向量（如果我们交换两个向量叉乘的顺序就会得到相反的指向x轴负方向的向量）：
+现在确定**右向量**(Right Vector)，即摄像机空间的`x`轴的正方向。
+
+为获取右向量，可以先定义一个**上向量**(Up Vector)，然后把上向量和方向向量进行叉乘，两个向量叉乘的结果会同时垂直于两向量，从而得到指向`x`轴正方向的那个向量（如果交换两个向量叉乘的顺序就会得到指向`x`轴负方向的向量）：
 
 ```c++
 glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f); 
@@ -3551,10 +3561,313 @@ glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
 
 #### 上轴
 
-现在我们已经有了x轴向量和z轴向量，获取一个指向摄像机的正y轴向量就相对简单了：我们把右向量和方向向量进行叉乘：
+通过右向量和方向向量进行叉乘得到上轴：
 
 ```c++
 glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 ```
 
-在叉乘和一些小技巧的帮助下，我们创建了所有构成观察/摄像机空间的向量。用这些摄像机向量我们就可以创建一个LookAt矩阵了，它在创建摄像机的时候非常有用。
+#### Look At
+
+说说为啥需要**LookAt**这个矩阵，其实就是上面讲过的那个`View`矩阵，只是有点疑惑，这个`View`不是很容易得到的吗，直接用在世界坐标系中的位置就行了啊，在这为啥要费这么大得劲。当然这只是我个人的疑惑，先看看怎么得到这个矩阵吧：
+
+$$
+LookAt=
+\begin{bmatrix}
+R_x&R_y&R_z&0\\
+U_x&U_y&U_z&0\\
+D_x&D_y&D_z&0\\
+0&0&0&1
+\end{bmatrix}
+*
+\begin{bmatrix}
+1&0&0&-P_x\\
+0&1&0&-P_y\\
+0&0&1&-P_z\\
+0&0&0&1
+\end{bmatrix}
+$$
+其中 $R$ 是右向量，$U$ 是上向量，$D$ 是方向向量，$P$ 是摄像机位置向量。
+
+可以用`glm::lookAt`函数直接创建这个矩阵，这里面的三个变量分别是**摄像机位置**、**目标位置**和**世界空间中的上向量**。
+
+```c++
+glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), 
+           		             glm::vec3(0.0f, 0.0f, 0.0f), 
+		                     glm::vec3(0.0f, 1.0f, 0.0f));
+```
+
+为了体现效果，让摄像机在场景中旋转，将目标位置固定在`(0,0,0)`，这里只改变摄像机位置的`x`和`z`，相当于我们平时在地面上拿着摄像机围着物体转了一圈。
+
+```c++
+//! 这里就是上面说的围着物体转了一圈，半径是10
+auto radius = 10.0f;
+auto camX = static_cast<float>(sin(glfwGetTime())) * radius;
+auto camZ = static_cast<float>(cos(glfwGetTime())) * radius;
+glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ),
+                             glm::vec3(0.0, 0.0, 0.0),
+                             glm::vec3(0.0, 1.0, 0.0));
+glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+										(float) SCR_WIDTH / (float) SCR_HEIGHT,
+										0.1f, 100.0f);
+ourShader.setMat4("view", view);
+ourShader.setMat4("projection", projection);
+
+glBindVertexArray(VAO);
+for (unsigned int i = 0; i < 10; i++)
+{
+	auto angle = 20.0f * static_cast<float>(i);
+	glm::mat4 model = glm::rotate(glm::translate(glm::mat4(1.0f), cubePositions[i]),
+    	                          glm::radians(angle),
+        	                      glm::vec3(1.0f, 0.3f, 0.5f));
+	ourShader.setMat4("model", model);
+
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+```
+
+最终的效果如下：
+
+<video src="videos/07_01_camera.mkv"></video>
+
+### 自由移动
+
+接下来将摄像机系统抽象出来：
+
+```c++
+//! 摄像机位置
+glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+//! 方向向量，不再是原本的目标位置了
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+//! 上轴
+glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+//! 这里变得就是第二个变量：目标位置变成了摄像机位置+方向向量了，
+//! 这样就能保证无论我们怎么变摄像机位置，最终的目标位置始终在摄像头前方
+view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+```
+
+ 再添加一个通过按键来更改`cameraPos`的功能：
+
+```c++
+void processInput(GLFWwindow *window)
+{
+	...
+
+	float cameraSpeed = 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		cameraPos += cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		cameraPos -= cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+        //! 这里做标准化是为了保证移动是匀速的
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+}
+```
+
+最终效果如下（图像变动是因为进行了按键操作）：
+
+<video src="videos/07_02_camera.mkv"></video>
+
+#### 移动速度
+
+画面的移动速度和程序调用`processInput`这个函数的频率有关，性能高的调的就快一些，为了能够让程序在不能性能的设备上取得相同的效果，引入一个**时间差(Deltatime)**变量，用来存储上一帧渲染所需要的时间，然后再用速度去乘以这个值，这样的话当`deltatime`很大的时候就表示上一帧渲染的慢，所以现在这一帧的速度就会变快，从而使得速度变得相对的平衡。
+
+```c++
+float deltaTime = 0.0f; // 当前帧与上一帧的时间差
+float lastFrame = 0.0f; // 上一帧的时间
+float currentFrame = glfwGetTime();
+deltaTime = currentFrame - lastFrame;
+lastFrame = currentFrame;
+```
+
+### 视角移动
+
+现在添加通过鼠标进行转向的功能，就是更改上面定义的`cameraFront`向量，这里需要引入**欧拉角**的概念。
+
+#### 欧拉角
+
+欧拉角(Euler Angle)是可以表示3D空间中任何旋转的3个值，分别是俯仰角(Pitch)、偏航角(Yaw)和滚转角(Roll)：
+
+![img](imgs/camera_pitch_yaw_roll.png)
+
+* 俯仰角：描述如何往上或往下看的角；
+* 偏航角：往左或往右看的程度；
+* 滚转角：代表如何翻转摄像机，通常在太空飞船的摄像机中使用。
+
+这里只用俯仰角和偏航角，给定一个俯仰角和偏航角，可以把它们转换为一个代表新的方向向量的3D向量。
+
+如下图，假设斜边长1，左下角的角度没有标出来是$$θ$$，那么对边就是$$sinθ$$，临边就是$$cosθ$$，这是通用的情况
+
+![img](imgs/camera_triangle.png)
+
+**俯仰角`pitch`**
+
+现在想象在`xz`平面上，看向`y`轴，这里我觉得这个图怪怪的，这看起来更像是从原点往外看，如下：
+
+![img](imgs/camera_pitch.png)
+
+
+
+```c++
+//! 方向向量的分量如下，注意还没有算完，这只是俯仰角
+direction.y = sin(glm::radians(pitch)); // 注意先把角度转为弧度
+direction.x = cos(glm::radians(pitch));
+direction.z = cos(glm::radians(pitch));
+```
+
+**偏航角`yaw`**
+
+从`xy`平面看向`z`轴：
+
+![img](imgs/camera_yaw.png)
+
+```c++
+//！ direction代表摄像机的前轴(Front)，这个前轴最开始那四个图的第二个图的方向是反的
+direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw)); 
+direction.y = sin(glm::radians(pitch));
+direction.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+```
+
+上面这些还没有完全理解，现在怎么这么笨了，等会再想想。
+
+#### 鼠标输入
+
+偏航角和俯仰角是通过鼠标（或手柄）移动获得的，水平的移动影响偏航角，竖直的移动影响俯仰角。
+
+原理是先储存上一帧鼠标的位置，在当前帧中计算鼠标位置与上一帧的位置相差多少，水平/竖直差别越大那么俯仰角或偏航角就改变越大，也就是摄像机需要移动更多的距离。
+
+**通过GLFW捕获光标，并隐藏**
+
+```c++
+//! 调用此函数，无论怎么移动鼠标，光标都不会显示，也不会离开窗口
+glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+```
+
+**监听鼠标移动事件**
+
+```c++
+//! 和键盘输入相似，创建一个回调函数，xops和ypos代表鼠标位置
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+//! 注册回调函数
+glfwSetCursorPosCallback(window, mouse_callback);
+```
+
+完整的计算方向向量的步骤如下：
+
+1. 计算鼠标距上一帧的偏移量
+
+```c++
+//! 设置变量储存上一帧的鼠标位置，初始设置为屏幕正中间
+float lastX = 400, lastY = 300;
+float xoffset = xpos - lastX;
+float yoffset = lastY - ypos; // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+lastX = xpos;
+lastY = ypos;
+
+//! 设置一个灵敏度
+float sensitivity = 0.05f;
+xoffset *= sensitivity;
+yoffset *= sensitivity;
+```
+
+2. 把偏移量添加到摄像机的俯仰角和偏航角中
+
+```c++
+yaw   += xoffset;
+pitch += yoffset;
+```
+
+3. 对偏航角和俯仰角进行最大和最小值的限制
+
+```c++
+if(pitch > 89.0f)
+  pitch =  89.0f;
+if(pitch < -89.0f)
+  pitch = -89.0f;
+```
+
+4. 计算方向向量
+
+```c++
+glm::vec3 front;
+front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+front.y = sin(glm::radians(pitch));
+front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+cameraFront = glm::normalize(front);
+```
+
+完整的代码如下：
+
+```c++
+void mouse_callback([[maybe_unused]] GLFWwindow *window, double xPosIn, double yPosIn)
+{
+	auto xPos = static_cast<float>(xPosIn);
+	auto yPos = static_cast<float>(yPosIn);
+	if (firstMouse)
+	{
+		lastX = xPos;
+		lastY = yPos;
+		firstMouse = false;
+	}
+	auto xOffset = xPos - lastX;
+	auto yOffset = lastY - yPos;
+
+	lastX = xPos;
+	lastY = yPos;
+
+	float sensitivity = 0.05;
+	xOffset *= sensitivity;
+	yOffset *= sensitivity;
+
+	yaw += xOffset;
+	pitch += yOffset;
+
+	if (pitch > 89.0f)pitch = 89.0f;
+	if (pitch < -89.0f)pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(front);
+}
+```
+
+测试了下没有什么问题，就不录视频了。
+
+#### 缩放(Zoom)
+
+其实就是调节`fov`，注册一个鼠标滚轮的回调函数：
+
+```c++
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+  if(fov >= 1.0f && fov <= 45.0f)
+    fov -= yoffset;
+  if(fov <= 1.0f)
+    fov = 1.0f;
+  if(fov >= 45.0f)
+    fov = 45.0f;
+}
+glfwSetScrollCallback(window, scroll_callback);
+```
+
+最终的效果如下：
+
+<video src="videos/07_03_camera.mkv"></video>
+
+### 摄像机类
+
+现在把上面做的这些都抽象成一个摄像机类
+
+代码详见`07_01_camera`，有意思。
