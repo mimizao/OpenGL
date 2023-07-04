@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="ubuntu16 (69dcb853-8cd3-44c4-a026-7548c3b99f75)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.OiXcdbdlJS" local="$PROJECT_DIR$/07_01_camera" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/07_01_camera/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
