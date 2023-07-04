@@ -3738,7 +3738,9 @@ direction.y = sin(glm::radians(pitch));
 direction.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
 ```
 
-上面这些还没有完全理解，现在怎么这么笨了，等会再想想。
+上面这个图话的不好，直接看下面这个图比较好理解：
+
+![img](imgs/6b3d3b11c2aa903864562b777a8531488ae4df63f5f022466c44f091e0eb1d44.jpg)
 
 #### 鼠标输入
 
@@ -3770,7 +3772,10 @@ glfwSetCursorPosCallback(window, mouse_callback);
 //! 设置变量储存上一帧的鼠标位置，初始设置为屏幕正中间
 float lastX = 400, lastY = 300;
 float xoffset = xpos - lastX;
-float yoffset = lastY - ypos; // 注意这里是相反的，因为y坐标是从底部往顶部依次增大的
+//! 注意这里是相反的，因为y坐标是从底部往顶部依次增大的，
+//! glfwSetCursorPosCallback返回给mouse_callback函数的
+//! (x,y) 是鼠标相对于窗口左【上】角的位置，所以需要将 (ypos - lastY) 取反
+float yoffset = lastY - ypos; 
 lastX = xpos;
 lastY = ypos;
 
@@ -3870,4 +3875,177 @@ glfwSetScrollCallback(window, scroll_callback);
 
 现在把上面做的这些都抽象成一个摄像机类
 
-代码详见`07_01_camera`，有意思。
+代码详见`07_01_camera`，不过这个应该不能在真实项目中使用。
+
+### 练习
+
+#### 练习1
+
+> 看看你是否能够修改摄像机类，使得其能够变成一个**真正的FPS**摄像机（也就是说不能够随意飞行）；只能够呆在`xz`平面上。
+
+```c++
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+{
+	auto velocity = MovementSpeed * deltaTime;
+	switch (direction)
+	{
+		case FORWARD:
+			Position += Front * velocity;
+			break;
+		case BACKWARD:
+			Position -= Front * velocity;
+			break;
+		case LEFT:
+			Position -= Right * velocity;
+			break;
+		case RIGHT:
+			Position += Right * velocity;
+			break;
+		default:
+			break;
+	}
+    //! 就是把这个y固定就行了，不过我看为啥没有效果啊
+	Position.y = 0.0f;
+}
+```
+
+#### 练习2
+
+>试着创建你自己的LookAt函数，其中你需要手动创建一个我们在一开始讨论的观察矩阵。用你的函数实现来替换GLM的LookAt函数，看看它是否还能一样地工作
+
+难受啊，我的不能像原本一样的工作了：
+
+```c
+glm::mat4 Camera::calculateLookAtMatrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp)
+{
+	// 1. Position = known
+	// 2. Calculate cameraDirection
+	glm::vec3 zAxis = glm::normalize(position - target);
+	// 3. Get positive right axis vector
+	glm::vec3 xAxis = glm::normalize(glm::cross(glm::normalize(worldUp), zAxis));
+	// 4. Calculate camera up vector
+	glm::vec3 yaxis = glm::cross(zAxis, xAxis);
+
+	// Create translation and rotation matrix
+	// In glm we access elements as mat[col][row] due to column-major layout
+	glm::mat4 translation = glm::mat4(1.0f); // Identity matrix by default
+	translation[3][0] = -position.x; // Third column, first row
+	translation[3][1] = -position.y;
+	translation[3][2] = -position.z;
+	glm::mat4 rotation = glm::mat4(1.0f);
+	rotation[0][0] = xAxis.x; // First column, first row
+	rotation[1][0] = xAxis.y;
+	rotation[2][0] = xAxis.z;
+	rotation[0][1] = yaxis.x; // First column, second row
+	rotation[1][1] = yaxis.y;
+	rotation[2][1] = yaxis.z;
+	rotation[0][2] = zAxis.x; // First column, third row
+	rotation[1][2] = zAxis.y;
+	rotation[2][2] = zAxis.z;
+
+	// Return lookAt matrix as combination of translation and rotation matrix
+	return rotation * translation; // Remember to read from right to left (first translation then rotation)
+}
+```
+
+
+
+# 光照
+
+## 颜色
+
+**使用RGB的方式表示一个颜色**：
+
+```c++
+//! 这里定义一个珊瑚红
+glm::vec3 coral(1.0f, 0.5f, 0.31f);
+```
+
+在现实用看到一个物体的颜色，其实是那个物体**反射**的颜色，也就是不能被那个物体吸收的颜色，白色的阳光实际上是所有可见颜色的集合，物体吸收了其中的大部分颜色。它仅反射了代表物体颜色的部分，被反射颜色的组合就是所感知到的颜色（此例中为珊瑚红）
+
+![img](imgs/light_reflection.png)
+
+在OpenGL中创建一个光源，并给光源一个颜色，当把光源的颜色和物体的颜色相乘，得到的就是这个物体所反射的颜色。
+
+```c++
+glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+glm::vec3 toyColor(1.0f, 0.5f, 0.31f);
+glm::vec3 result = lightColor * toyColor; // = (1.0f, 0.5f, 0.31f);
+```
+
+通过上面可以看出，物体的颜色为**物体从一个光源反射各个颜色向量的大小**。
+
+换一个绿色的光源试试：
+
+```c++
+glm::vec3 lightColor(0.0f, 1.0f, 0.0f);
+glm::vec3 toyColor(1.0f, 0.5f, 0.31f);
+glm::vec3 result = lightColor * toyColor; // = (0.0f, 0.5f, 0.0f);
+```
+
+再换一个：
+
+```c++
+glm::vec3 lightColor(0.33f, 0.42f, 0.18f);
+glm::vec3 toyColor(1.0f, 0.5f, 0.31f);
+glm::vec3 result = lightColor * toyColor; // = (0.33f, 0.21f, 0.06f);
+```
+
+大概看这几个就行了，现在创建真实的光照场景。
+
+### 创建真实的光照场景
+
+现在的场景就是画两个立方体，一个`cube`，一个`lighting`，我在代码里面写成了`lamp`，假设它是一个台灯感觉更清晰一点。
+
+两个立方体公用一个`VBO`数据，只有`lamp`的`model`矩阵不同，这样的话就是最终的位置不同。
+
+```c++
+glm::vec3 lampPos(1.2f, 1.0f, 2.0f);
+model = glm::mat4();
+model = glm::translate(model, lampPos);
+model = glm::scale(model, glm::vec3(0.2f));
+```
+
+为了表示`cube`被`lamp`照着，把`cube`的片段着色器成如下：
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+uniform vec3 cubeColor;
+uniform vec3 lampColor;
+
+void main()
+{
+    FragColor = vec4(lampColor * cubeColor, 1.0);
+}
+```
+
+将`lamp`的颜色独立出来，所以单独给它添加一套着色器（顶点着色器现在其实是一样的）：
+
+```glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main()
+{
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
+}
+```
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0); // 将向量的四个分量全部设置为1.0
+}
+```
+
+
+
