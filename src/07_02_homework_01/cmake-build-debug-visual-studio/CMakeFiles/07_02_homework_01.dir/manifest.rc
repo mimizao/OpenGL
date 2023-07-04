@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "D:/OneDrive/Study/OpenGL/src/07_02_homework_01/cmake-build-debug-visual-studio/CMakeFiles/07_02_homework_01.dir/embed.manifest"
