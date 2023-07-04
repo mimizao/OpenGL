@@ -1,0 +1,25 @@
+# ninja log v5
+4	285	7101024768002971	CMakeFiles/07_01_camera.dir/src/Camera.cpp.obj	a170b1df1ae803f9
+8	243	7101024767564910	CMakeFiles/07_01_camera.dir/glad.c.obj	c1b12851c67cc16f
+2	549	7101028709339460	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+6	451	7101024769647571	CMakeFiles/07_01_camera.dir/src/Shader.cpp.obj	4fe2dbc0544fef46
+552	656	7101025439244275	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+3	258	7101028949797408	build.ninja	87cdbbdf3ad00fb1
+2	562	7101029208081831	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+562	706	7101029209331889	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	561	7101029643164419	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+561	664	7101029644018198	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	551	7101030636563147	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+551	740	7101030638222216	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	478	7101030750602453	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+479	573	7101030751371902	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	577	7101031517553960	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+578	752	7101031519091185	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+3	552	7101034119701167	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+553	650	7101034120502593	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	542	7101034549591712	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+542	721	7101034551184651	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	844	7101041525062460	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+845	948	7101041525922362	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874
+2	571	7101041979472232	CMakeFiles/07_01_camera.dir/main.cpp.obj	42fd09547394c841
+571	763	7101041981181589	C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/build/07_01_camera.exe	fdc7df591163d874

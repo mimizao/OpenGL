@@ -1,0 +1,3 @@
+C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/cmake-build-debug-visual-studio/CMakeFiles/07_01_camera.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir

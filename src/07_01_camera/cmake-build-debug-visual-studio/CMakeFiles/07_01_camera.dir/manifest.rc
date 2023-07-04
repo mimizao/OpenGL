@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/Users/Sven/OneDrive/Study/OpenGL/src/07_01_camera/cmake-build-debug-visual-studio/CMakeFiles/07_01_camera.dir/embed.manifest"
