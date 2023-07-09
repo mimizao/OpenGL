@@ -4021,7 +4021,13 @@ void main()
 }
 ```
 
-将`lamp`的颜色独立出来，所以单独给它添加一套着色器（顶点着色器现在其实是一样的）：
+原教程中写的：
+
+“要注意的是，当我们修改顶点或者片段着色器后，灯的位置或颜色也会随之改变，这并不是我们想要的效果。我们不希望灯的颜色在接下来的教程中因光照计算的结果而受到影响，而是希望它能够与其它的计算分离。我们希望灯一直保持明亮，不受其它颜色变化的影响（这样它才更像是一个真实的光源）。”
+
+上面这么多写的有点模糊，其实和计算关系不大，主要还是共用了一套着色器，分开用就行了。
+
+这样做的目的是为了将`lamp`的颜色独立出来，所以单独给它添加一套着色器（顶点着色器现在其实是一样的）：
 
 ```glsl
 #version 330 core
@@ -4047,5 +4053,508 @@ void main()
 }
 ```
 
+完整代码如下：
 
+```c++
+#ifndef STB_IMAGE_IMPLEMENTATION
+	#define STB_IMAGE_IMPLEMENTATION
+#endif
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <Shader.h>
+#include <Camera.h>
+
+void framebuffer_size_callback([[maybe_unused]] GLFWwindow *window, int width, int height);
+
+void mouse_callback([[maybe_unused]] GLFWwindow *window, double xPosIn, double yPosIn);
+
+void scroll_callback([[maybe_unused]] GLFWwindow *window, double xOffset, double yOffset);
+
+void processInput(GLFWwindow *window);
+
+//! setting
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
+//! camera
+Camera camera(glm::vec3(0.0f, 0.0f, 6.0f));
+auto lastX = 800.0f / 2.0f;
+auto lastY = 600.0f / 2.0f;
+auto firstMouse = true;
+
+//! time
+auto deltaTime = 0.0f;
+auto lastFrame = 0.0f;
+
+//! lighting, so-called lamp
+glm::vec3 lampPos(1.2f, 1.0f, 2.0f);
+
+int main()
+{
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	auto window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "08_01_lighting", nullptr, nullptr);
+	if (window == nullptr)
+	{
+		std::cout << "Failed to create GLFW window" << std::endl;
+		glfwTerminate();
+		return -1;
+	}
+	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
+
+	//! tell GLFW to capture our mouse
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
+
+	//! 启用深度测试
+	glEnable(GL_DEPTH_TEST);
+
+	//! 教程起的什么破名字，乱七八糟的
+	Shader cubeShader("../shaders/cube_vs.glsl", "../shaders/cube_fs.glsl");
+	Shader lampShader("../shaders/lamp_vs.glsl", "../shaders/lamp_fs.glsl");
+
+	//! set up vertex data (and buffer(s)) and configure vertex attributes
+	float vertices[] = {
+			-0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, -0.5f,
+			0.5f, 0.5f, -0.5f,
+			0.5f, 0.5f, -0.5f,
+			-0.5f, 0.5f, -0.5f,
+			-0.5f, -0.5f, -0.5f,
+
+			-0.5f, -0.5f, 0.5f,
+			0.5f, -0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, 0.5f,
+			-0.5f, -0.5f, 0.5f,
+
+			-0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, -0.5f,
+			-0.5f, -0.5f, -0.5f,
+			-0.5f, -0.5f, -0.5f,
+			-0.5f, -0.5f, 0.5f,
+			-0.5f, 0.5f, 0.5f,
+
+			0.5f, 0.5f, 0.5f,
+			0.5f, 0.5f, -0.5f,
+			0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,
+
+			-0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, -0.5f,
+			0.5f, -0.5f, 0.5f,
+			0.5f, -0.5f, 0.5f,
+			-0.5f, -0.5f, 0.5f,
+			-0.5f, -0.5f, -0.5f,
+
+			-0.5f, 0.5f, -0.5f,
+			0.5f, 0.5f, -0.5f,
+			0.5f, 0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, 0.5f,
+			-0.5f, 0.5f, -0.5f,
+	};
+
+	//! first, configure the cube's VAO and VBO
+	unsigned int VBO, cubeVAO;
+	glGenVertexArrays(1, &cubeVAO);
+	glGenBuffers(1, &VBO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindVertexArray(cubeVAO);
+
+	//! position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) nullptr);
+	glEnableVertexAttribArray(0);
+
+	//! second, configure the light's VAO (VBO stays the same: the vertices are the same of the light object which is also a 3D cube)
+	unsigned int lampVAO;
+	glGenVertexArrays(1, &lampVAO);
+	glBindVertexArray(lampVAO);
+
+	//! we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it;
+	//! the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) nullptr);
+	glEnableVertexAttribArray(0);
+
+	while (!glfwWindowShouldClose(window))
+	{
+		auto currentTime = static_cast<float>(glfwGetTime());
+		deltaTime = currentTime - lastFrame;
+		lastFrame = currentTime;
+
+		processInput(window);
+
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		cubeShader.use();
+		cubeShader.setVec3("cubeColor", 1.0f, 0.5f, 0.31f);
+		cubeShader.setVec3("lampColor", 1.0f, 1.0f, 1.0f);
+
+		//! projection and view transformations
+		auto projection = glm::perspective(glm::radians(camera.Zoom),
+		                                   static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT),
+		                                   0.1f,
+		                                   100.0f);
+		auto view = camera.GetViewMatrix();
+		cubeShader.setMat4("projection", projection);
+		cubeShader.setMat4("view", view);
+
+		//! world transformation
+		auto model = glm::mat4(1.0f);
+		cubeShader.setMat4("model", model);
+
+		//! render the cube
+		glBindVertexArray(cubeVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//! also draw the lamp object
+		lampShader.use();
+		lampShader.setMat4("projection", projection);
+		lampShader.setMat4("view", view);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, lampPos);
+		model = glm::scale(model, glm::vec3(0.2f));
+		lampShader.setMat4("model", model);
+
+		glBindVertexArray(lampVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	glDeleteVertexArrays(1, &cubeVAO);
+	glDeleteVertexArrays(1, &lampVAO);
+	glDeleteBuffers(1, &VBO);
+
+	glfwTerminate();
+	return 0;
+}
+
+void processInput(GLFWwindow *window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, true);
+	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(FORWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(LEFT, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera.ProcessKeyboard(RIGHT, deltaTime);
+	}
+}
+
+void framebuffer_size_callback([[maybe_unused]] GLFWwindow *window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
+void mouse_callback([[maybe_unused]] GLFWwindow *window, double xPosIn, double yPosIn)
+{
+	auto xPos = static_cast<float>(xPosIn);
+	auto yPos = static_cast<float>(yPosIn);
+	if (firstMouse)
+	{
+		lastX = xPos;
+		lastY = yPos;
+		firstMouse = false;
+	}
+	auto xOffset = xPos - lastX;
+	auto yOffset = lastY - yPos;
+
+	lastX = xPos;
+	lastY = yPos;
+
+	camera.ProcessMouseMovement(xOffset, yOffset);
+}
+
+void scroll_callback([[maybe_unused]] GLFWwindow *window, [[maybe_unused]] double xOffset, double yOffset)
+{
+	camera.ProcessMouseScroll(static_cast<float>(yOffset));
+}
+
+```
+
+最终结果如下：
+
+![image-20230705200047081](imgs/image-20230705200047081.png)
+
+## 基础光照
+
+### 冯氏光照模型
+
+现实生活中的光照情况是非常复杂的，OpenGL中使用的是简化的了光照模型，这里介绍下其中一种：**冯氏光照模型（Phong Lighting Model）**，该模型主要由三个分量组成：**环境（Ambient）***、**漫反射（Diffuse）**和**镜面（Specular）**光照，看起来效果如下：
+
+![img](imgs/basic_lighting_phong.png)
+
+- **环境光照(Ambient Lighting)**：即使在黑暗的情况下，世界上通常也仍然有一些光亮（月亮、远处的光），所以物体几乎永远不会是完全黑暗的。为了模拟这些光，使用一个环境光照常量，它永远会给物体一些颜色。
+- **漫反射光照(Diffuse Lighting)**：模拟光源对物体的方向性影响(Directional Impact)，它是冯氏光照模型中视觉上最显著的分量，物体的某一部分越是正对着光源，它就会越亮。
+- **镜面光照(Specular Lighting)**：模拟有光泽物体上面出现的亮点。镜面光照的颜色相比于物体的颜色会更倾向于光的颜色。
+
+### 环境光照
+
+因为光的反射等原因，真实的**全局照明（Global Illumination）**算法非常复杂，这里采用简化的**环境光照**。只需要使用一个很小的常量来表示光照的颜色，并将这个颜色添加到片段最终的颜色中即可。
+
+```glsl
+void main()
+{
+    //! 这里使用光的颜色乘以一个很小的常量环境因子，很显然这个值越大就越亮
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * lightColor;
+
+    vec3 result = ambient * objectColor;
+    FragColor = vec4(result, 1.0);
+}
+```
+
+效果如下：
+
+![image-20230705195905209](imgs/image-20230705195905209.png)
+
+### 漫反射光照
+
+漫反射光照使物体与上方光线方向越接近的片段越能从光源处获得更多的亮度，如下图：
+
+![img](imgs/diffuse_light.png)
+
+很显然，如果这个光源发出的光线落在物体的正上方就会最亮，所以需要测量这个光线和这个片段的角度，引入**法向量（Normal Vector）**的概念，就是图中黄色的垂直于片段表面的一个向量。
+
+已知两个单位向量的夹角越小，它们点乘的结果（这个结果是一个标量值）就越接近1，也就是图中的 $$θ$$ 越小，光源对片段颜色的影响就越大。
+
+> 因为只是为了体现两个向量夹角的余弦值，所以上面使用的都是单位向量（长度为1的向量），也就是需要参与运算的向量标准化，否则点乘的结果就不是余弦值了。
+
+<span id="jump">所以，计算漫反射光照需要：</span>
+
+1. 法向量：一个垂直于顶点表面的向量；
+2. 定向的光线：作为光源的位置和片段的位置之间向量差的方向向量，这个向量的计算又需要光的位置向量和片段的位置向量。
+
+#### 法向量
+
+法向量是一个垂直于顶点表面的（单位）向量，但是由于顶点本身并没有表面（它只是空间中一个独立的点），所以，可以利用它周围的顶点来计算出这个顶点的表面。本来是可以利用叉乘来计算的，但是因为现在这个顶点位置比较特殊（是一个3D立方体）所以就直接用给出的数据就行。
+
+1. 现在需要把添加的法向量数据添加到顶点着色器中：
+
+```glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+...
+```
+
+2. 还需要更新顶点属性：
+
+```c++
+//! 这个是cube,这个步长也变了
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) nullptr);
+glEnableVertexAttribArray(0);
+//! 这个是法向量，这个不光步长变了，偏移量也变了
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) (3 * sizeof(float)));
+glEnableVertexAttribArray(1);
+```
+
+```c++
+//! 这个是lamp,注意步长变了
+glBindBuffer(GL_ARRAY_BUFFER, VBO); // 这个
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *) nullptr);
+```
+
+> 上面这个`lamp`的 VBO 虽然有很多数据用不到，虽然看起来是有点浪费，但是还是和`cube`用了同一个 VBO，实际上是可以提升性能的，因为在`cube`用这个 VBO 的时候已经把数据存储到 GPU 了，这比专门给`lamp`专门分配一个新的 VBO 更高效。
+
+3. 这里关于光照的所有的计算都是在**片段着色器**中进行的，所以需要把法向量由顶点着色器传到片段着色器：
+
+顶点着色器：
+
+```glsl
+out vec3 Normal;
+
+void main()
+{
+	gl_Position = projection * view * model * v    
+}
+```
+
+片段着色器：
+
+```glsl
+in vec3 Normal;
+```
+
+#### 计算漫反射光照
+
+为了计算漫反射光照，还需要**光源的位置向量**和**片段的位置向量**（没明白为啥还需要片段的位置向量，上面的那个 VBO 里面不是都有了吗？）
+
+1. **光源的位置向量**：
+
+这里将光源的位置设置成一个静态变量，在`cube`的片段着色器中添加
+
+```glsl
+uniform vec3 lampPos；
+```
+
+给这个`uniform`变量设置值：
+
+```c++
+cubeShader.setVec3("lampPos", lampPos);
+```
+
+2. **片段的位置向量**：
+
+这里关于光照的计算都是在世界坐标中完成的，所以上面的疑问说 VBO 中不是已经有了相关数据了并不完全准确，那个其实是`local`坐标，所以需要把顶点位置乘以`model`（模型）矩阵来变换到世界坐标：
+
+顶点着色器：
+
+```glsl
+out vec3 FragPos;
+out vec3 Normal;
+
+void main()
+{
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    FragPos = vec3(model * vec4(aPos, 1.0));
+    Normal = aNormal;
+}
+```
+
+片段着色器：
+
+```glsl
+in vec3 FragPos;
+```
+
+3. **计算光源和片段s的方向向量**：[如果忘了为什么需要方向向量请看这里](#jump)
+
+光的方向向量是光源位置向量与片段位置向量之间的向量差，记住需要标准化：
+
+```glsl
+vec3 norm = normalize(Normal); // 法向量
+vec3 lampDir = normalize(lampPos - FragPos); // 方向向量
+```
+
+>为什么需要标准化呢？
+>
+>因为当计算光照时不关心一个向量的模长或它的位置，只关心它们的方向。所以，几乎所有的计算都使用单位向量完成，这样就可以简化大部分的计算（比如点乘）。
+>
+>因此在今后的计算中，需要确保已经对相关向量进行标准化了。
+
+4. 将**法向量**和**方向向量**进行点乘，计算光源对当前片段实际的漫反射的影响因子（勉强可以理解成强度大小），然后再用这个影响因子乘以光的颜色，就可以得到漫反射分量
+
+```glsl
+float diff = max(dot(norm, lampDir),0,0);
+vec3 diffuse = diff * lampColor;
+```
+
+<video src="videos/09_02_diffuse_lighting.mkv"></video>
+
+#### 法向量的注意项
+
+纵观上面的计算过程，可以发现关于光照的计算都是在世界坐标中完成的，但是**法向量**并没有转到世界坐标中，所以就需要讨论下，是否需要把法向量转入世界坐标？理论上是需要把法向量转成世界坐标的，但是不能是仅仅乘以一个模型矩阵就可以的，原因如下：
+
+1. 法向量只是一个方向向量，不能表达空间中的特定位置；
+2. 法向量没有齐次坐标（顶点位置中的`w`分量），所以位移不应该影响到法向量，因此如果把法向量乘以一个模型矩阵，就需要从矩阵中移除位移部分，只选用模型矩阵左上角$$3×3$$的矩阵（也可以把法向量的`w`分量设置为`0`，再乘以$$4×4$$矩阵，同样可以移除位移）；
+3. 如果模型矩阵执行了不等比缩放，顶点的改变会导致法向量不再垂直于表面，如下图：
+
+![img](imgs/basic_lighting_normal_transformation.png)
+
+综上所述，不能简单的使用模型矩阵来变换法向量。
+
+为了解决这个问题，可以通过专门给法向量定制一个模型矩阵，称之为**法线矩阵**，具体的计算过程呢我也不知道，只知道是**原模型矩阵左上角$$3×3$$部分的逆矩阵的转置矩阵**。使用`inverse`函数和`transpose`函数，公式如下：
+
+```glsl
+Normal = mat3(tarnspose(inverse(model)) * aNormal)；
+```
+
+**注意：需要把处理过的矩阵强制转换成$$3×3$$矩阵。**
+
+> 1. 大部分的资源都会将法线矩阵定义为应用->模型->观察的矩阵，但是这个模型目前都是在世界坐标中进行的，所以只需要模型矩阵就可以了；
+> 2. 矩阵的求逆运算消耗非常大，因为它必须在场景的每一个顶点上进行，所以尽可能避免放在着色器中进行逆运算。因为这里只是学习，所以无所谓，真实开发中最好在CPU中计算出法线矩阵后再通过uniform变量传递给着色器。
+
+### 镜面光照
+
+镜面光照和漫反射类似，但是需要多考虑一个观察角度，如下图：
+
+![img](imgs/basic_lighting_specular_theory.png)
+
+通过计算反射向量和观察方向的角度差，这个角度越小，镜面反射的效果就越强。
+
+1. 现在开始计算这个观察方向，这个可以通过观察者的世界坐标和片段的位置来计算：
+
+   1. 观察者的世界坐标直接用摄像机的位置即可：
+
+      ```glsl
+      //! cube的顶点着色器
+      uniform vec3 viewPos;
+      ```
+
+      ```c++
+      cubeShader.setVec3("viewPos", camera.Posiotion);
+      ```
+
+   2. 计算视线的方向向量以及沿着法线轴的反射向量：
+
+      ```c++
+      vec3 viewDir = normalize(viewPos - FragPos);
+      vec3 reflectDir = reflect(-lampDir, norm);
+      ```
+
+      注意这里在计算反射向量的时候对`lampDir`即光照方向取反了，因为`reflect`函数要求第一个向量是从光源指向片段位置的向量，但是目前`lampDir`是相反的， 所以取反一下；第二个参数就是一个法向量，这里提供的是已经标准化的`norm`向量。
+
+2. 计算镜面分量：
+
+```glsl
+float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+//定义一个镜面强度（Specular Intensity）变量，用来调节这个比例：
+float specularStrength = 0.5;
+vec3 specular = specularStrength * spec * lightColor;
+```
+
+`max`函数是为了确保不是负值，这个取32次幂是高光的**反光度（Shininess）**。当一个物体的反光度越高，会有以下三种现象：
+
+1. 反射光的能力就越强；
+2. 散射得也就会越少；
+3. 高光点就会越小。
+
+下图展示了不同反光度的视觉效果：
+
+![img](imgs/basic_lighting_specular_shininess.png)
+
+把全部的加起来：
+
+```glsl
+vec3 result = (ambient + diffuse + specular) * cubeColor;
+FragColor = vec4(result, 1.0);
+```
+
+![image-20230710002232678](imgs/image-20230710002232678.png)
