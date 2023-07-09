@@ -1,0 +1,14 @@
+# ninja log v5
+67	863	7102518287008232	CMakeFiles/09_01_ambient_lighting.dir/glad.c.obj	a5842a275310cd76
+117	866	7102518287028233	CMakeFiles/09_01_ambient_lighting.dir/src/Camera.cpp.obj	8e51d2ece4d8d3f3
+2	934	7102518287703234	CMakeFiles/09_01_ambient_lighting.dir/main.cpp.obj	9d40078b1c9294c2
+33	954	7102518287943237	CMakeFiles/09_01_ambient_lighting.dir/src/Shader.cpp.obj	be6a420e314ad7bd
+955	2156	7102518299579738	D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/build/09_01_ambient_lighting.exe	fde8a4499412941
+3	1104	7102612491681012	CMakeFiles/09_01_ambient_lighting.dir/main.cpp.obj	9d40078b1c9294c2
+1104	1735	7102612497078399	D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/build/09_01_ambient_lighting.exe	fde8a4499412941
+4	831	7102614803713322	CMakeFiles/09_01_ambient_lighting.dir/main.cpp.obj	9d40078b1c9294c2
+832	1623	7102614810793703	D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/build/09_01_ambient_lighting.exe	fde8a4499412941
+4	869	7102615038194714	CMakeFiles/09_01_ambient_lighting.dir/main.cpp.obj	9d40078b1c9294c2
+869	1365	7102615042369713	D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/build/09_01_ambient_lighting.exe	fde8a4499412941
+5	887	7102615236054094	CMakeFiles/09_01_ambient_lighting.dir/main.cpp.obj	9d40078b1c9294c2
+888	1684	7102615243147249	D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/build/09_01_ambient_lighting.exe	fde8a4499412941

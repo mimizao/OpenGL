@@ -1,0 +1,3 @@
+D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/cmake-build-debug-visual-studio/CMakeFiles/09_01_ambient_lighting.dir
+D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/09_01_ambient_lighting/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
