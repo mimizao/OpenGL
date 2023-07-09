@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/build/08_01_lighting.exe"
+			"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/build/08_01_lighting.exe"
 		},
 		{
-			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/build/08_01_lighting.pdb"
+			"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/build/08_01_lighting.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -62,11 +62,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/../../include"
+					"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/include"
+					"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/include"
 				}
 			],
 			"language" : "CXX",
@@ -96,11 +96,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/../../include"
+					"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/include"
+					"path" : "D:/OneDrive/Study/OpenGL/src/08_01_lighting/include"
 				}
 			],
 			"language" : "C",
@@ -125,7 +125,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LIBPATH:C:\\Users\\Sven\\OneDrive\\Study\\OpenGL\\src\\08_01_lighting\\..\\..\\libs",
+				"fragment" : "-LIBPATH:D:\\OneDrive\\Study\\OpenGL\\src\\08_01_lighting\\..\\..\\libs",
 				"role" : "libraryPath"
 			},
 			{

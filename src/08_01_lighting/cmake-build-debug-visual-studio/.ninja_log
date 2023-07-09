@@ -1,6 +1,11 @@
 # ninja log v5
-3	258	7101859999747812	build.ninja	87cdbbdf3ad00fb1
-96	1123	7101671818546024	CMakeFiles/08_01_lighting.dir/src/Camera.cpp.obj	4a71142fab1b4ed2
-5	875	7101759314536204	CMakeFiles/08_01_lighting.dir/main.cpp.obj	ad37135471d69e7b
-35	1133	7101671818636024	CMakeFiles/08_01_lighting.dir/glad.c.obj	7b7b2960b52ed453
-131	1523	7101671822556017	CMakeFiles/08_01_lighting.dir/src/Shader.cpp.obj	31fddd755c3907a4
+3	258	7102239729353649	build.ninja	87cdbbdf3ad00fb1
+9	624	7101886970524393	CMakeFiles/08_01_lighting.dir/src/Camera.cpp.obj	d891cc3c6e2e45b1
+1	752	7101886971844459	CMakeFiles/08_01_lighting.dir/main.cpp.obj	acdb136c9a787a9a
+7	621	7101886970524393	CMakeFiles/08_01_lighting.dir/glad.c.obj	7786ffae6a386402
+4	756	7101886971874458	CMakeFiles/08_01_lighting.dir/src/Shader.cpp.obj	218eef0707287afa
+97	1144	7102423662643774	CMakeFiles/08_01_lighting.dir/src/Camera.cpp.obj	4a71142fab1b4ed2
+33	1147	7102423662658774	CMakeFiles/08_01_lighting.dir/glad.c.obj	7b7b2960b52ed453
+135	1264	7102423663853835	CMakeFiles/08_01_lighting.dir/src/Shader.cpp.obj	31fddd755c3907a4
+6	1266	7102423663883771	CMakeFiles/08_01_lighting.dir/main.cpp.obj	ad37135471d69e7b
+1266	2383	7102423674622296	D:/OneDrive/Study/OpenGL/src/08_01_lighting/build/08_01_lighting.exe	a16e036e035ba9ac

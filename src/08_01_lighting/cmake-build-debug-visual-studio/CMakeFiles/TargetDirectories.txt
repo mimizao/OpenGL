@@ -1,3 +1,3 @@
-C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/08_01_lighting.dir
-C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
-C:/Users/Sven/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
+D:/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/08_01_lighting.dir
+D:/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/08_01_lighting/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
