@@ -1,0 +1,9 @@
+# ninja log v5
+3	258	7102573586290228	build.ninja	87cdbbdf3ad00fb1
+1116	2190	7102522432338158	D:/OneDrive/Study/OpenGL/src/09_02_diffuse_lighting/build/09_02_diffuse_lighting.exe	471aae8cf61bea21
+894	2130	7102568462081776	D:/OneDrive/Study/OpenGL/src/09_03_specular_lighting/build/09_03_specular_lighting.exe	1a0895bae961b687
+25	490	7102573731184256	CMakeFiles/test.dir/glad.c.obj	95f94583c1ef2c05
+1	782	7102573734090045	CMakeFiles/test.dir/main.cpp.obj	107b2dbd139cd0d7
+785	1840	7102573744206572	D:/OneDrive/Study/OpenGL/src/test/build/test.exe	5a8e5b59a13df5d8
+3	884	7102574419211687	CMakeFiles/test.dir/main.cpp.obj	107b2dbd139cd0d7
+885	1468	7102574424162833	D:/OneDrive/Study/OpenGL/src/test/build/test.exe	5a8e5b59a13df5d8
