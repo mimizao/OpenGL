@@ -1,0 +1,11 @@
+# ninja log v5
+3	258	7104006510629203	build.ninja	87cdbbdf3ad00fb1
+26	814	7102522419033332	CMakeFiles/09_02_diffuse_lighting.dir/glad.c.obj	582405b5350dcd36
+105	816	7102522419018332	CMakeFiles/09_02_diffuse_lighting.dir/src/Camera.cpp.obj	86135ef7eab366c5
+75	1116	7102522419888326	CMakeFiles/09_02_diffuse_lighting.dir/src/Shader.cpp.obj	509959425a4920a8
+7	10147	7103260634049751	CMakeFiles/09_02_diffuse_lighting.dir/main.cpp.obj	6e47e795cbc23537
+28	652	7104006647425780	CMakeFiles/09_02_diffuse_lighting.dir/glad.c.obj	582405b5350dcd36
+84	665	7104006647554915	CMakeFiles/09_02_diffuse_lighting.dir/src/Camera.cpp.obj	86135ef7eab366c5
+4	892	7104006649814744	CMakeFiles/09_02_diffuse_lighting.dir/main.cpp.obj	6e47e795cbc23537
+114	925	7104006650152476	CMakeFiles/09_02_diffuse_lighting.dir/src/Shader.cpp.obj	509959425a4920a8
+926	2788	7104006668388204	D:/OneDrive/Study/OpenGL/src/09_02_diffuse_lighting/build/09_02_diffuse_lighting.exe	471aae8cf61bea21
