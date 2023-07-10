@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "D:/OneDrive/Study/OpenGL/src/09_03_specular_lighting/cmake-build-debug-visual-studio/CMakeFiles/09_03_specular_lighting.dir/embed.manifest"
