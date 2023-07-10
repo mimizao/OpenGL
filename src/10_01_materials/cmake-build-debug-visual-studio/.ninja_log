@@ -1,0 +1,10 @@
+# ninja log v5
+3	258	7106890752945889	build.ninja	87cdbbdf3ad00fb1
+957	2104	7106743596024016	D:/OneDrive/Study/OpenGL/src/09_03_specular_lighting/build/09_03_specular_lighting.exe	1a0895bae961b687
+2	756	7106790416221182	CMakeFiles/10_01_materials.dir/glad.c.obj	7e843edd40d3f26f
+41	757	7106790416226149	CMakeFiles/10_01_materials.dir/src/Camera.cpp.obj	8ff7bc70c704a88c
+28	863	7106790417289021	CMakeFiles/10_01_materials.dir/src/Shader.cpp.obj	4c60a728b6f4b8c
+4	853	7106863183904348	CMakeFiles/10_01_materials.dir/main.cpp.obj	4e0923897c711747
+854	1336	7106863187950347	D:/OneDrive/Study/OpenGL/src/10_01_materials/build/10_01_materials.exe	5a2a991c36471388
+4	1146	7106915653536361	CMakeFiles/10_01_materials.dir/main.cpp.obj	4e0923897c711747
+1148	2083	7106915661952045	D:/OneDrive/Study/OpenGL/src/10_01_materials/build/10_01_materials.exe	5a2a991c36471388
