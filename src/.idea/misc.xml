@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/08_01_lighting">
+  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/11_01_lighting_maps">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>
