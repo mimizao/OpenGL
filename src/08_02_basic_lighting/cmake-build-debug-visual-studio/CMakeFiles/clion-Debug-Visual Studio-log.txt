@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\Sven\OneDrive\Study\OpenGL\src\08_02_basic_lighting Select CMakeLists.txt
