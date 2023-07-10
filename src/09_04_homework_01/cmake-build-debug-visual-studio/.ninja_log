@@ -1,0 +1,7 @@
+# ninja log v5
+3	258	7106745822684513	build.ninja	87cdbbdf3ad00fb1
+76	1247	7106567823616120	CMakeFiles/09_04_homework_01.dir/src/Camera.cpp.obj	9f4bc2f87cef0edf
+104	1374	7106567824907450	CMakeFiles/09_04_homework_01.dir/src/Shader.cpp.obj	8eadb99f80c4dfdb
+3	1251	7106567823626052	CMakeFiles/09_04_homework_01.dir/glad.c.obj	827b99bdfe15639f
+888	1396	7106618498301943	D:/OneDrive/Study/OpenGL/src/09_04_homework_01/build/09_04_homework_01.exe	92657ed59209740
+6	887	7106618493900827	CMakeFiles/09_04_homework_01.dir/main.cpp.obj	1167d7828986b731

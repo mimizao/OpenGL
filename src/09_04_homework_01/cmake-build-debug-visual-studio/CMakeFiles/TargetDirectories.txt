@@ -1,0 +1,3 @@
+D:/OneDrive/Study/OpenGL/src/09_04_homework_01/cmake-build-debug-visual-studio/CMakeFiles/09_04_homework_01.dir
+D:/OneDrive/Study/OpenGL/src/09_04_homework_01/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/09_04_homework_01/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
