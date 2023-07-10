@@ -1,0 +1,3 @@
+C:/Users/Sven/OneDrive/Study/OpenGL/src/10_02_light_properties/cmake-build-debug-visual-studio/CMakeFiles/10_02_light_properties.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/10_02_light_properties/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+C:/Users/Sven/OneDrive/Study/OpenGL/src/10_02_light_properties/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir
