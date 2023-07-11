@@ -1,0 +1,3 @@
+D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio/CMakeFiles/11_01_diffuse_maps.dir
+D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio/CMakeFiles/edit_cache.dir
+D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio/CMakeFiles/rebuild_cache.dir

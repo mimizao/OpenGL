@@ -1,0 +1,13 @@
+# ninja log v5
+3	258	7107714612807860	build.ninja	87cdbbdf3ad00fb1
+6	1076	7107712317903165	CMakeFiles/11_01_diffuse_maps.dir/main.cpp.obj	f11afb1c0b076d34
+1077	1710	7107712323286257	D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe	954732b7e58d767c
+4	1180	7107698543469635	CMakeFiles/11_01_diffuse_maps.dir/glad.c.obj	6d9d0734c19abd69
+137	1191	7107698543583865	CMakeFiles/11_01_diffuse_maps.dir/src/Camera.cpp.obj	aa45f8d86160eb83
+100	1345	7107698545128495	CMakeFiles/11_01_diffuse_maps.dir/src/Shader.cpp.obj	1b12ee761936a824
+7	2450	7107723469971307	CMakeFiles/11_01_diffuse_maps.dir/main.cpp.obj	f11afb1c0b076d34
+2452	4218	7107723483987219	D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe	954732b7e58d767c
+4	934	7107729430483154	CMakeFiles/11_01_diffuse_maps.dir/main.cpp.obj	f11afb1c0b076d34
+935	1557	7107729435813484	D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe	954732b7e58d767c
+5	1176	7107780757194481	CMakeFiles/11_01_diffuse_maps.dir/main.cpp.obj	f11afb1c0b076d34
+1177	1894	7107780763610578	D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe	954732b7e58d767c
