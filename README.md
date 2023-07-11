@@ -2735,7 +2735,7 @@ FragColor = texture(ourTexture, TexCoord) * vec4(ourColor, 1.0);
 
 ### 纹理单元
 
-在上述片段着色器中`sampler2D`是个`uniform`变量，但是并没有用`glUniform`赋值。而是使用`glUniform1i`，v这样可以给纹理采样器分配一个位置值，从而在一个片段着色器中设置多个纹理。
+在上述片段着色器中`sampler2D`是个`uniform`变量，但是并没有用`glUniform`赋值。而是使用`glUniform1i`，这样可以给纹理采样器分配一个位置值，从而在一个片段着色器中设置多个纹理。
 
 一个纹理的位置值通常称为一个**纹理单元(Texture Unit)**。一个纹理的默认纹理单元是0，它是默认的激活纹理单元。
 
@@ -4557,4 +4557,480 @@ vec3 result = (ambient + diffuse + specular) * cubeColor;
 FragColor = vec4(result, 1.0);
 ```
 
-![image-20230710002232678](imgs/image-20230710002232678.png)
+<video src="videos/09_03_specular_lighting.mkv"></video>
+
+>在光照着色器的早期，开发者曾经在顶点着色器中实现冯氏光照模型。在顶点着色器中做光照的优势是，相比片段来说，顶点要少得多，因此会更高效，所以（开销大的）光照计算频率会更低。然而，顶点着色器中的最终颜色值是仅仅只是那个顶点的颜色值，片段的颜色值是由插值光照颜色所得来的。结果就是这种光照看起来不会非常真实，除非使用了大量顶点。
+>
+>![img](imgs/basic_lighting_gouruad.png)
+>
+>在顶点着色器中实现的冯氏光照模型叫做Gouraud着色(Gouraud Shading)，而不是冯氏着色(Phong Shading)。记住，由于插值，这种光照看起来有点逊色。冯氏着色能产生更平滑的光照效果。
+
+### 练习
+
+#### 练习1
+
+> 目前，我们的光源是静止的，你可以尝试使用sin或cos函数让光源在场景中来回移动。观察光照随时间的改变能让你更容易理解冯氏光照模型。
+
+```c++
+	while (!glfwWindowShouldClose(window))
+	{
+		...
+
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		lampPos.x = 1.0f + static_cast<float>(sin(glfwGetTime())) * 2.0f;
+		lampPos.y = static_cast<float>(sin(glfwGetTime())) * 1.0f;
+
+		...
+	}
+```
+
+<video src="videos/09_04_homework_01.mkv"></video>
+
+#### 练习2
+
+> 尝试使用不同的环境光、漫反射和镜面强度，观察它们是怎么影响光照效果的。同样，尝试实验一下镜面光照的反光度因子。尝试理解为什么某一个值能够有着某一种视觉输出。
+
+```c++
+cubeShader.setFloat("ambientStrength",
+                    abs(static_cast<float>(sin(glfwGetTime()))));
+cubeShader.setFloat("diffuseStrength",
+                    abs(static_cast<float>(cos(glfwGetTime()))));
+cubeShader.setFloat("specularStrength",
+                    abs(static_cast<float>(sin(glfwGetTime()) + 
+                                           cos(glfwGetTime())) / 2.0f));
+```
+
+<video src="videos/09_05_homework_02.mkv"></video>
+
+#### 练习3
+
+> 在观察空间（而不是世界空间）中计算冯氏光照
+
+```glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+
+out vec3 FragPos;
+out vec3 Normal;
+out vec3 LampPos;
+
+uniform vec3 lampPos;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main()
+{
+    gl_Position = projection * view * model * vec4(aPos, 1.0f);
+    FragPos = vec3(view * model * vec4(aPos, 1.0f));
+    Normal = mat3(transpose(inverse(view * model))) * aNormal;
+    LampPos = vec3(view * vec4(lampPos, 1.0f));
+}
+```
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+in vec3 FragPos;
+in vec3 Normal;
+in vec3 LampPos;
+
+uniform vec3 cubeColor;
+uniform vec3 lampColor;
+
+void main()
+{
+    //! ambient
+    float ambientStrength = 0.1f;
+    vec3 ambient = ambientStrength * lampColor;
+
+    //! diffuse
+    vec3 norm = normalize(Normal);
+    vec3 lampDir = normalize(LampPos - FragPos);
+    float diff = max(dot(norm, lampDir), 0.0);
+    vec3 diffuse = diff * lampColor;
+
+    //! specular
+    float specularStrength = 0.5f;
+    vec3 viewDir = normalize(-FragPos);
+    vec3 reflectDir = reflect(-lampDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
+    vec3 specular = specularStrength * spec * lampColor;
+
+    vec3 result = (ambient + diffuse + specular) * cubeColor;
+    FragColor = vec4(result, 1.0);
+}
+```
+
+<video src="videos/09_06_homework_03.mkv"></video>
+
+说实话，没有看出来什么区别。
+
+#### 练习4
+
+>尝试实现一个Gouraud着色，而不是冯氏着色，就是在顶点着色器中做光照。
+
+```glsl
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+
+out vec3 LightingColor; // resulting color from lighting calculations
+
+uniform vec3 lampPos;
+uniform vec3 viewPos;
+uniform vec3 lampColor;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+void main()
+{
+    gl_Position = projection * view * model * vec4(aPos, 1.0f);
+
+    // gouraud shading
+    vec3 Position = vec3(model * vec4(aPos, 1.0f));
+    vec3 Normal = mat3(transpose(inverse(model))) * aNormal;
+
+    // ambient
+    float ambientStrength = 0.1f;
+    vec3 ambient = ambientStrength * lampColor;
+
+    // diffuse
+    vec3 norm = normalize(Normal);
+    vec3 lampDir = normalize(lampPos - Position);
+    float diff = max(dot(norm, lampDir), 0.0f);
+    vec3 diffuse = diff * lampColor;
+
+    // specular
+    float specularStrength = 0.5f;
+    vec3 viewDir = normalize(viewPos - Position);
+    vec3 reflectDir = reflect(-lampDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
+    vec3 specular = specularStrength * lampColor;
+
+    LightingColor = ambient + diffuse + specular;
+}
+```
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+in vec3 LightingColor;
+
+uniform vec3 cubeColor;
+
+void main()
+{
+    FragColor = vec4(LightingColor * cubeColor, 1.0f);
+}
+```
+
+最终效果如下：
+
+![image-20230710151733928](imgs/image-20230710151733928.png)
+
+![image-20230710152311888](imgs/image-20230710152311888.png)
+
+答案的说法是因为插值法等原因，会看出来一条明显的三角形分界线：
+
+You can see (for yourself or in the provided image) the clear distinction of the two triangles at the front of the  cube. This 'stripe' is visible because of fragment interpolation. From the example image we can see that the top-right  vertex of the cube's front face is lit with specular highlights. Since the top-right vertex of the bottom-right triangle is  lit and the other 2 vertices of the triangle are not, the bright values interpolates to the other 2 vertices. The same  happens for the upper-left triangle. Since the intermediate fragment colors are not directly from the light source  but are the result of interpolation, the lighting is incorrect at the intermediate fragments and the top-left and  bottom-right triangle collide in their brightness resulting in a visible stripe between both triangles. This effect will become more apparent when using more complicated shapes。
+
+## 材质
+
+> 忘了便于理解，这里摘抄一个评论：
+>
+> 材质就是对光的反射特性
+>
+> 比如说：在阳光下，树叶是绿色的，并不是树叶发出了绿色的光，而是树叶吸收了其他颜色的光，反射绿色的光。
+> 剥离掉树叶这种物质，提取出树叶对光“处理”的特性，这就叫树叶材质。
+>
+> 一般我们使用 漫反射光、镜面反射光、光泽度等属性，来定义一种材质，其实我不喜欢这样的称呼，我更喜欢称作 漫反射率， 镜面反射率。
+>
+> 比如树叶的漫反射率(0.54, 0.89, 0.63), 可以这么理解，
+> 树叶可以反射光照中: 54%的红色光，89%的绿色光，63%的蓝色光，
+> 树叶可以吸收光照中: 1-54%的红色光，1-89%的绿色光，1-63%的蓝色光
+
+为了模拟现实世界中不同类型的物体对光线的反射情况，引入**材质（material）**概念，其实就是描述这个物体表面对于上述三种光照的反射情况，还有一个`shininess`是镜面高光的散射/半径：
+
+```glsl
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+}; 
+
+uniform Material material;
+```
+
+**注意这里就没有物体颜色（`cubeColor`）那个变量了，一般将`diffuse`设置为期望的物体颜色，环境光一般也设置成这样。**
+
+该网站[devernay.free.fr](http://devernay.free.fr/cours/opengl/materials.html)记录了一系列材质属性，可以试下。
+
+下图展示了几组现实世界的材质参数值对立方体的影响：
+
+![img](imgs/materials_real_world.png)
+
+### 设置材质
+
+上面定义了一个`uniform Material material`，可以直接用这个变量来设置：
+
+```glsl
+void main()
+{    
+    // 环境光
+    vec3 ambient = lightColor * material.ambient;
+
+    // 漫反射 
+    vec3 norm = normalize(Normal);
+    vec3 lightDir = normalize(lightPos - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = lightColor * (diff * material.diffuse);
+
+    // 镜面光
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);  
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = lightColor * (spec * material.specular);  
+
+    // 注意这里已经不乘以cubeColor了
+    vec3 result = ambient + diffuse + specular;
+    FragColor = vec4(result, 1.0);
+}
+```
+
+```c++
+cubeShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+cubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+cubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+cubeShader.setFloat("material.shininess", 32.0f);
+```
+
+效果如下：
+
+![image-20230710192647593](imgs/image-20230710192647593.png)
+
+### 光的属性
+
+上面这个颜色不大对，虽然已经把`material.diffuse`设置的和原本的物体颜色一样了，但是还是太亮了。
+
+这是因为环境光、漫反射和镜面光这三个颜色对任何一个光源都全力反射，真实情况应该设置成不同的强度，上面的做法是分别设置不同的`strength`，现在变了，使用**光照属性**来设置，其实就是直接设置这三个分量的光了：
+
+```glsl
+struct Light {
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+uniform Light light;
+```
+
+```glsl
+vec3 ambient = light.ambient * material.ambient;
+vec3 diffuse = light.diffuse * diff * material.diffuse;
+vec3 specular = light.specular * spec * material.specular;
+```
+
+```c++
+cubeShader.setVec3("light.position", lampPos);
+cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
+cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+```
+
+这个效果不错：
+
+![image-20230710195239204](imgs/image-20230710195239204.png)
+
+### 不同的光源颜色
+
+整点花活，其实就是对这个光设置不同的颜色，上面都是白色的，只是调了下亮度。
+
+```c++
+glm::vec3 lightColor{static_cast<float>(sin(glfwGetTime() * 2.0f)),
+		                     static_cast<float>(sin(glfwGetTime() * 0.7f)),
+		                     static_cast<float>(sin(glfwGetTime() * 1.3f))};
+auto diffuseColor = lightColor * glm::vec3(0.5f);
+auto ambientColor = diffuseColor * glm::vec3(0.2f);
+cubeShader.setVec3("light.ambient", ambientColor);
+cubeShader.setVec3("light.diffuse", diffuseColor);
+cubeShader.setVec3("light.specular", glm::vec3(1.0f));
+```
+
+效果如下：
+
+<video src="videos/10_01_material.mkv"></video>
+
+### 练习
+
+#### 练习1
+
+> 尝试改变光照颜色从而改变光源立方体的颜色
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+uniform vec3 lightColor;
+
+void main()
+{
+    FragColor = vec4(lightColor, 1.0f); // set light color
+}
+```
+
+```c++
+//! set lamp's color
+lampShader.setVec3("lightColor", lightColor);
+```
+
+<video src="videos/10_02_homework_01.mkv"></video>
+
+#### 练习2
+
+> 去上面的那个网站里面找一个现实中的材质，这里尝试的是青色塑料（Cyan Plastic），需要注意的是上面网站里面并没有考虑不同反射光照的强度，所以需要将所有的光照强度都设置为`vec3(1.0)`
+
+```c++
+//! set light properties
+auto lightColor = glm::vec3(1.0f);
+cubeShader.setVec3("light.ambient", lightColor);
+cubeShader.setVec3("light.diffuse", lightColor);
+cubeShader.setVec3("light.specular", lightColor);
+
+//! set material
+cubeShader.setVec3("material.ambient", 0.0f, 0.1f, 0.06f);
+cubeShader.setVec3("material.diffuse", 0.0f, 0.50980392f, 0.50980392f);
+cubeShader.setVec3("material.specular", 0.50196078f, 0.50196078f, 0.50196078f);
+cubeShader.setFloat("material.shininess", 32.0f);
+```
+
+想着少改点代码，所以就把这个都设置成`lightColor`了，效果如下：
+
+![image-20230711002509025](imgs/image-20230711002509025.png)
+
+##  光照贴图
+
+之前的教程是将物体的材质定义为一个整体，但是现实中往往不是这样的，所以这里就需要扩展下之前的系统，引入**漫反射贴图**和**镜面贴图**。
+
+### 漫反射贴图
+
+这里用这个图演示：
+
+![img](imgs/container2.png)
+
+其实和原本的纹理的教程差不多，不同的是这个在片段着色器里面改了一点：
+
+```glsl
+struct Material {
+    // 这里把原本的vec3 diffuse改成了sampler2D
+    // 因为ambient基本都和diffuse一样，所以这里去掉了ambient
+    sampler2D diffuse;
+    vec3      specular;
+    float     shininess;
+}; 
+uniform Material material;
+
+// 因为后面需要用纹理坐标了，所以这里加一个输入变量
+in vec2 TexCoords;
+```
+
+> 注意`sampler2D`是所谓的**不透明类型(Opaque Type)**，也就是说不能将它实例化，只能通过`uniform`来定义它。如果使用除`uniform`以外的方法（比如函数的参数）实例化这个结构体，GLSL会抛出一些奇怪的错误。这同样也适用于任何封装了不透明类型的结构体。
+
+```glsl
+vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
+vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
+// 这个写成这样也行？好像是可以的
+vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
+vec3 specular = light.specular * spec * texture(material.specular, TexCoords).rgb;
+```
+
+然后把这个纹理生效，最终效果如下：
+
+![image-20230711192921915](imgs/image-20230711192921915.png)
+
+这个效果挺好看的，有个问题就是木头不该这么反光，所以还是得改下。
+
+### 镜面光贴图
+
+理论上这个木头不应该反光这么明显，这主要是镜面反射影响的，所以得设置镜面高光的强度，给不同的材质设置不同的强度，但是如果一个个设置就太麻烦了，所以这里的方法是用一个图片，然后去采样图片上面的点，将采样到的点颜色作为这个点的镜面强度，这里用这张图：
+
+![img](imgs/container2_specular.png)
+
+这样的话，木头就基本都不会有镜面反光了，但是周围的钢铁之类的还是会有的。
+
+**因为这个一般只关心强度，所以用了一张主要是黑的图片**
+
+#### 采样镜面光贴图
+
+这个其实也是一个纹理，只是说现在用两个纹理了，所以需要指定纹理单元，一个的时候不用是因为默认用的是`GL_TEXTURE0`：
+
+```glsl
+struct Material {
+    sampler2D diffuse;
+    sampler2D specular;
+    float shininess;
+};
+
+vec3 specular = light.specular * spec * texture(material.specular, TexCoords).rgb;
+```
+
+
+
+```c++
+	cubeShader.use();
+	cubeShader.setInt("material.diffuse", 0);
+	cubeShader.setInt("material.specular", 1);
+	...
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, diffuseMap);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, specularMap);
+```
+
+效果如图：
+
+![image-20230712001554876](../../../Desktop/image-20230712001554876.png)
+
+这个就很真实了，木头的也不会反光的很厉害了。
+
+### 练习
+
+#### 练习1
+
+> 调整光源的环境光、漫反射和镜面光向量，看看它们如何影响箱子的视觉输出。
+
+#### 练习2
+
+>尝试在片段着色器中反转镜面光贴图的颜色值，让木头显示镜面高光而钢制边缘不反光（由于钢制边缘中有一些裂缝，边缘仍会显示一些镜面高光，虽然强度会小很多）
+
+```glsl
+// 我的写法
+vec3 specularStrength = texture(material.specular, TexCoords).rgb;
+vec3 specular = light.specular * spec * vec3(1.0f - specularStrength.x,
+                                             1.0f - specularStrength.y,
+                                             1.0f - specularStrength.z);
+// 参考答案的写法，果然还是不熟啊，自己写的这么麻烦，虽然结果是一样的
+vec3 specular = light.specular * spec * (vec3(1.0f) - texture(material.specular, TexCoords).rgb);
+```
+
+![image-20230712004244496](imgs/image-20230712004244496.png)
+
+#### 练习3
+
+> 使用漫反射贴图创建一个彩色而不是黑白的镜面光贴图，看看结果看起来并不是那么真实了。
+
+![img](imgs/lighting_maps_specular_color.png)
+
+没啥意思，就是换个纹理图片的地址，没有感觉出来有什么：
+
+![image-20230712005156122](imgs/image-20230712005156122.png)
