@@ -1,0 +1,8 @@
+# ninja log v5
+3	258	7107960166764044	build.ninja	87cdbbdf3ad00fb1
+774	1183	7107952853427729	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_02_specular_maps/build/11_02_specular_maps.exe	2966df24b09e0efa
+3	239	7107960263954324	CMakeFiles/11_03_homework_01.dir/glad.c.obj	9f98a567bbf6eb5
+7	283	7107960264396643	CMakeFiles/11_03_homework_01.dir/src/Camera.cpp.obj	6a2262c52599f397
+5	440	7107960265965024	CMakeFiles/11_03_homework_01.dir/src/Shader.cpp.obj	3e42c8344133f41c
+0	494	7107960266501186	CMakeFiles/11_03_homework_01.dir/main.cpp.obj	5ff2e486c03daf5a
+494	775	7107960269195950	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_03_homework_01/build/11_03_homework_01.exe	9c561af28275ebfd
