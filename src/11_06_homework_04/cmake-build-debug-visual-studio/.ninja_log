@@ -1,0 +1,5 @@
+# ninja log v5
+53	1564	7109156365868666	CMakeFiles/11_06_homework_04.dir/glad.c.obj	a0f37158e22a9e27
+154	1572	7109156365868666	CMakeFiles/11_06_homework_04.dir/src/Camera.cpp.obj	d704bae121b486fb
+200	1777	7109156368024208	CMakeFiles/11_06_homework_04.dir/src/Shader.cpp.obj	9a72f5bcd2b4b833
+4	1649	7110021346030546	CMakeFiles/11_06_homework_04.dir/main.cpp.obj	5a582189f7e523a3
