@@ -5034,3 +5034,11 @@ vec3 specular = light.specular * spec * (vec3(1.0f) - texture(material.specular,
 没啥意思，就是换个纹理图片的地址，没有感觉出来有什么：
 
 ![image-20230712005156122](imgs/image-20230712005156122.png)
+
+#### 练习4
+
+>添加一个叫做放射光贴图(Emission Map)的东西，它是一个储存了每个片段的发光值(Emission Value)的贴图。发光值是一个包含（假设）光源的物体发光(Emit)时可能显现的颜色，这样的话物体就能够忽略光照条件进行发光(Glow)。游戏中某个物体在发光的时候，你通常看到的就是放射光贴图（比如 [机器人的眼](https://learnopengl-cn.github.io/img/02/04/shaders_enemy.jpg)，或是[箱子上的灯带](https://learnopengl-cn.github.io/img/02/04/emissive.png)）。将[下面这个](https://learnopengl-cn.github.io/img/0纹理作为放射光贴图添加到箱子上，产生这些字母都在发光的效果
+
+![img](imgs/matrix-1689212280228-1.jpg)
+
+<video src="videos/11_01_homework_04.mkv"></video>
