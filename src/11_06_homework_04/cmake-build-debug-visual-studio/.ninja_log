@@ -3,3 +3,8 @@
 154	1572	7109156365868666	CMakeFiles/11_06_homework_04.dir/src/Camera.cpp.obj	d704bae121b486fb
 200	1777	7109156368024208	CMakeFiles/11_06_homework_04.dir/src/Shader.cpp.obj	9a72f5bcd2b4b833
 4	1649	7110021346030546	CMakeFiles/11_06_homework_04.dir/main.cpp.obj	5a582189f7e523a3
+4	271	7111427003142896	CMakeFiles/11_06_homework_04.dir/glad.c.obj	ed09ba47cfa9be4c
+6	311	7111427003572886	CMakeFiles/11_06_homework_04.dir/src/Camera.cpp.obj	82e93626af00a675
+8	485	7111427005302886	CMakeFiles/11_06_homework_04.dir/src/Shader.cpp.obj	2873c4258520c62c
+1	528	7111427005722880	CMakeFiles/11_06_homework_04.dir/main.cpp.obj	21431db209bf918c
+528	834	7111427008678541	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_06_homework_04/build/11_06_homework_04.exe	d0082a02ab03ca98

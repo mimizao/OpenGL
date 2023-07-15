@@ -1,9 +1,11 @@
 # ninja log v5
-3	258	7107960790771916	build.ninja	87cdbbdf3ad00fb1
+3	258	7111428109050719	build.ninja	87cdbbdf3ad00fb1
 494	775	7107960269195950	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_03_homework_01/build/11_03_homework_01.exe	9c561af28275ebfd
+8	712	7107966816091032	CMakeFiles/11_04_homework_02.dir/src/Shader.cpp.obj	76e37f3908876de0
+753	1168	7107966820541026	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_04_homework_02/build/11_04_homework_02.exe	4920afb62e3d5a3e
 774	1183	7107952853427729	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_02_specular_maps/build/11_02_specular_maps.exe	2966df24b09e0efa
 2	582	7107966814771025	CMakeFiles/11_04_homework_02.dir/glad.c.obj	d3a3c2247994e453
 5	584	7107966814781040	CMakeFiles/11_04_homework_02.dir/src/Camera.cpp.obj	75a3f3f44cb143c5
-8	712	7107966816091032	CMakeFiles/11_04_homework_02.dir/src/Shader.cpp.obj	76e37f3908876de0
 0	753	7107966816491029	CMakeFiles/11_04_homework_02.dir/main.cpp.obj	72c3ea9d09eb6767
-753	1168	7107966820541026	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_04_homework_02/build/11_04_homework_02.exe	4920afb62e3d5a3e
+2	555	7111428631512767	CMakeFiles/11_04_homework_02.dir/main.cpp.obj	72c3ea9d09eb6767
+555	668	7111428632465382	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_04_homework_02/build/11_04_homework_02.exe	4920afb62e3d5a3e

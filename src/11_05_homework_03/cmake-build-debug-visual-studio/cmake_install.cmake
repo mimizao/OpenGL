@@ -1,4 +1,4 @@
-# Install script for directory: D:/OneDrive/Study/OpenGL/src/11_05_homework_03
+# Install script for directory: C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/cmake-build-debug-visual-studio/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/cmake-build-debug-visual-studio/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

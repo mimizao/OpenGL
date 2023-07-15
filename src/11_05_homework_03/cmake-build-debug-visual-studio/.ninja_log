@@ -1,6 +1,11 @@
 # ninja log v5
 5	314	7107973520525366	CMakeFiles/11_05_homework_03.dir/src/Camera.cpp.obj	80259bbf9379d07e
 0	485	7107973522242748	CMakeFiles/11_05_homework_03.dir/main.cpp.obj	59905c93a341c0ad
-3	258	7108282950656693	build.ninja	87cdbbdf3ad00fb1
+3	258	7111427593823938	build.ninja	87cdbbdf3ad00fb1
 3	316	7107973520535357	CMakeFiles/11_05_homework_03.dir/glad.c.obj	b0fadc179c9bacb6
 8	447	7107973521867057	CMakeFiles/11_05_homework_03.dir/src/Shader.cpp.obj	fc731640b0652b03
+4	245	7111427662969300	CMakeFiles/11_05_homework_03.dir/glad.c.obj	b0fadc179c9bacb6
+8	285	7111427663364377	CMakeFiles/11_05_homework_03.dir/src/Camera.cpp.obj	80259bbf9379d07e
+7	449	7111427665004375	CMakeFiles/11_05_homework_03.dir/src/Shader.cpp.obj	fc731640b0652b03
+2	491	7111427665424373	CMakeFiles/11_05_homework_03.dir/main.cpp.obj	59905c93a341c0ad
+492	679	7111427667244903	C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/build/11_05_homework_03.exe	e3fb7f7a462afcb3

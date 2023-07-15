@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/build/11_05_homework_03.exe"
+			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/build/11_05_homework_03.exe"
 		},
 		{
-			"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/build/11_05_homework_03.pdb"
+			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/build/11_05_homework_03.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -62,11 +62,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/../../include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/include"
 				}
 			],
 			"language" : "CXX",
@@ -96,11 +96,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/../../include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_05_homework_03/include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/include"
 				}
 			],
 			"language" : "C",
@@ -125,7 +125,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LIBPATH:D:\\OneDrive\\Study\\OpenGL\\src\\11_05_homework_03\\..\\..\\libs",
+				"fragment" : "-LIBPATH:C:\\Users\\Sven\\OneDrive\\Study\\OpenGL\\src\\11_05_homework_03\\..\\..\\libs",
 				"role" : "libraryPath"
 			},
 			{

@@ -757,8 +757,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_03_homework_01/cmake-build-debug-visual-studio",
-		"source" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_03_homework_01"
+		"build" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio",
+		"source" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps"
 	},
 	"version" : 
 	{

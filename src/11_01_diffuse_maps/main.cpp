@@ -145,14 +145,11 @@ int main()
 		cubeShader.setVec3("viewPos", camera.Position);
 
 		//! set light properties
-		cubeShader.setVec3("light.position", lampPos);
 		cubeShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		cubeShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // 将光照调暗了一些以搭配场景
 		cubeShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		//! set material
-		cubeShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		cubeShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
 		cubeShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
 		cubeShader.setFloat("material.shininess", 32.0f);
 

@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe"
+			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.exe"
 		},
 		{
-			"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.pdb"
+			"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/build/11_01_diffuse_maps.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -62,11 +62,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/../../include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/include"
 				}
 			],
 			"language" : "CXX",
@@ -96,11 +96,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/../../include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/../../include"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/include"
+					"path" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/include"
 				}
 			],
 			"language" : "C",
@@ -125,7 +125,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LIBPATH:D:\\OneDrive\\Study\\OpenGL\\src\\11_01_diffuse_maps\\..\\..\\libs",
+				"fragment" : "-LIBPATH:C:\\Users\\Sven\\OneDrive\\Study\\OpenGL\\src\\11_01_diffuse_maps\\..\\..\\libs",
 				"role" : "libraryPath"
 			},
 			{

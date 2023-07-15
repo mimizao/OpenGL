@@ -2,7 +2,7 @@
 	"entries" : 
 	[
 		{
-			"name" : "11_01_diffuse_maps_BINARY_DIR",
+			"name" : "11_05_homework_03_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -11,10 +11,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio"
+			"value" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/cmake-build-debug-visual-studio"
 		},
 		{
-			"name" : "11_01_diffuse_maps_IS_TOP_LEVEL",
+			"name" : "11_05_homework_03_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -26,7 +26,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "11_01_diffuse_maps_SOURCE_DIR",
+			"name" : "11_05_homework_03_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps"
+			"value" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -75,7 +75,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio"
+			"value" : "c:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/cmake-build-debug-visual-studio"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -135,7 +135,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/cmake.exe"
+			"value" : "C:/Users/Sven/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -147,7 +147,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/cpack.exe"
+			"value" : "C:/Users/Sven/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -159,7 +159,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/ctest.exe"
+			"value" : "C:/Users/Sven/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps/cmake-build-debug-visual-studio/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03/cmake-build-debug-visual-studio/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/OneDrive/Study/OpenGL/src/11_01_diffuse_maps"
+			"value" : "C:/Users/Sven/OneDrive/Study/OpenGL/src/11_05_homework_03"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -587,7 +587,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/11_01_diffuse_maps"
+			"value" : "C:/Program Files (x86)/11_05_homework_03"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -615,7 +615,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/ninja/win/x64/ninja.exe"
+			"value" : "C:/Users/Sven/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/ninja/win/x64/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -711,7 +711,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.22000.0/x86/mt.exe"
+			"value" : "D:/Windows Kits/10/bin/10.0.22621.0/x86/mt.exe"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -771,7 +771,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "11_01_diffuse_maps"
+			"value" : "11_05_homework_03"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -799,7 +799,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Program Files (x86)/Windows Kits/10/bin/10.0.22000.0/x86/rc.exe"
+			"value" : "D:/Windows Kits/10/bin/10.0.22621.0/x86/rc.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -903,7 +903,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Administrator/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/share/cmake-3.25"
+			"value" : "C:/Users/Sven/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/win/x64/share/cmake-3.25"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
